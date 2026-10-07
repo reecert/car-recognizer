@@ -1,4 +1,4 @@
-coremltools==9.0
+coremltools==9.1.dev1  # first build with Python 3.14 support; 9.0 cannot export (BlobWriter not loaded)
 datasets==5.1.0
 matplotlib==3.11.2
 numpy==2.5.3

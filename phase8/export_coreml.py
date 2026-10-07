@@ -6,13 +6,14 @@ so the iPhone app does no math of its own:
   - softmax is baked in (outputs are probabilities, 0..1)
   - class names are embedded (Apple's Vision framework returns labels directly)
 
-Writes to ios_assets/:
-  CarClassifier.mlpackage   the model, ready to drop into Xcode
+Writes into the Xcode app (CarRecognizer/Models/):
+  CarClassifier.mlpackage   stage 2: which car is it
+  CarDetector.mlpackage     stage 1: where are the cars (Phase 2's YOLO detector, with NMS built in)
   specs.json                specs for the classes this model knows (if --specs given)
 
 Usage:
-    python export_coreml.py ../phase4/runs/pytorch_resnet18/best.pt --specs specs_stanford.json
-    python export_coreml.py ../phase4/runs/pytorch_resnet18/best.pt --int8      (half the size)
+    python export_coreml.py ../phase4/runs/resnet18_320/best.pt --specs specs_stanford.json
+    python export_coreml.py ../phase4/runs/resnet18_320/best.pt --int8      (half the size)
 
 On a Mac it also checks that CoreML and PyTorch agree on real validation photos.
 """
@@ -89,7 +90,9 @@ def parity_check(wrapper: nn.Module, mlmodel, val_dir: Path, classes: list[str],
 def main() -> None:
     parser = argparse.ArgumentParser(description="Export a trained classifier to CoreML.")
     parser.add_argument("checkpoint", type=Path, help="best.pt from phase4/train_pytorch.py")
-    parser.add_argument("--out", type=Path, default=Path("ios_assets"))
+    parser.add_argument("--out", type=Path, default=Path("CarRecognizer/Models"))
+    parser.add_argument("--detector", type=Path, default=Path("../phase2/yolo26n.pt"),
+                        help="YOLO detector weights for stage 1 (downloaded if missing)")
     parser.add_argument("--specs", type=Path, default=None, help="JSON of specs keyed by class name")
     parser.add_argument("--int8", action="store_true", help="8-bit weights: ~half the size, tiny accuracy cost")
     parser.add_argument("--val", type=Path, default=Path("../data/stanford_subset/val"),
@@ -151,7 +154,17 @@ def main() -> None:
         if missing:
             print(f"  [warn] no specs for: {', '.join(missing)} (the app will show the name only)")
 
-    # 4. Parity check (CoreML can only run predictions on macOS)
+    # 4. Stage 1 detector. Ultralytics adds NMS as a CoreML pipeline, so Vision returns
+    #    finished boxes with labels ("car", "truck", ...) and the app does no box math.
+    from ultralytics import YOLO
+    exported = Path(YOLO(args.detector).export(format="coreml", nms=True, imgsz=640))
+    det_pkg = args.out / "CarDetector.mlpackage"
+    if det_pkg.exists():
+        shutil.rmtree(det_pkg)
+    shutil.move(exported, det_pkg)
+    print(f"Saved {det_pkg}")
+
+    # 5. Parity check (CoreML can only run predictions on macOS)
     if platform.system() == "Darwin":
         print("\nChecking CoreML against PyTorch on validation photos ...")
         if args.val.is_dir():

@@ -1,0 +1,24 @@
+# Xcode project spec. Generate CarRecognizer.xcodeproj with:  xcodegen
+name: CarRecognizer
+options:
+  bundleIdPrefix: com.reecert
+  deploymentTarget:
+    iOS: "18.0"
+settings:
+  SWIFT_VERSION: "6.0"
+  SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+  SWIFT_APPROACHABLE_CONCURRENCY: YES
+targets:
+  CarRecognizer:
+    type: application
+    platform: iOS
+    sources: [CarRecognizer]   # includes Models/ (the .mlpackages and specs.json from export_coreml.py)
+    info:
+      path: CarRecognizer/Info.plist
+      properties:
+        CFBundleDisplayName: Car Recognizer
+        NSCameraUsageDescription: The camera finds and identifies cars in front of you.
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+    settings:
+      DEVELOPMENT_TEAM: ""     # set your team in Xcode (Signing & Capabilities) to run on a phone

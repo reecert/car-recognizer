@@ -11,7 +11,7 @@ Run every script **from inside its phase folder** (paths like `../data/...` are 
 | 4 | `phase4/` | `train_pytorch.py`: the same in plain PyTorch, with ablations (`--scratch`, `--arch`). |
 | 5 | `phase5/` | `inspect_model.py` (filters, Grad-CAM, feature space), `linear_probe.py`. |
 | 6 | `phase6/` | `evaluate.py`: the held-out test score, per-class accuracy, confidence thresholds. |
-| 8 | `phase8/` | `export_coreml.py` and the SwiftUI app sources (`*.swift`). |
+| 8 | `phase8/` | `export_coreml.py` and the iOS app (`CarRecognizer/`): live camera + photo library, YOLO detector finds each car, classifier names it, tap for specs. |
 
 ## Setup
 
@@ -26,9 +26,20 @@ cd phase3 && python prepare_stanford.py       # downloads Stanford Cars, writes 
 ```sh
 cd phase4 && python train_pytorch.py                                   # -> runs/pytorch_resnet18/best.pt
 cd ../phase6 && python evaluate.py ../phase4/runs/pytorch_resnet18/best.pt --data ../data/stanford_subset --split val
-cd ../phase8 && python export_coreml.py ../phase4/runs/pytorch_resnet18/best.pt --specs specs_stanford.json
+cd ../phase8 && python export_coreml.py ../phase4/runs/resnet18_320/best.pt --specs specs_stanford.json
 ```
 
-Then add `phase8/*.swift` plus `ios_assets/CarClassifier.mlpackage` and `ios_assets/specs.json` to an Xcode iOS app target.
+## iOS app
+
+```sh
+cd phase8
+python export_coreml.py ../phase4/runs/resnet18_320/best.pt --specs specs_stanford.json   # -> CarRecognizer/Models/
+xcodegen                     # brew install xcodegen; generates CarRecognizer.xcodeproj from project.yml
+open CarRecognizer.xcodeproj # set your Team under Signing & Capabilities, then run on an iPhone
+```
+
+Two tabs, same two-stage pipeline (`CarPipeline.swift`): the detector boxes every car/truck, the classifier
+names the 3 biggest, and anything under 50% confidence shows as "Not sure". The camera needs a real
+iPhone; the Photo tab also works in the simulator.
 
 Not in git (see `.gitignore`): datasets in `data/`, training runs, `*.pt` weights, the CoreML export.
