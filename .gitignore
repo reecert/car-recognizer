@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+.DS_Store
+.ipynb_checkpoints/
+phase1/raw_photos/
+phase1/dataset/
