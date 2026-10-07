@@ -1,0 +1,43 @@
+{
+  "toyota_corolla_sedan_2012": {
+    "make": "Toyota", "model": "Corolla", "years": "2012", "body": "Compact sedan",
+    "engines": [{"name": "1.8L I4", "hp": 132}]
+  },
+  "toyota_camry_sedan_2012": {
+    "make": "Toyota", "model": "Camry", "years": "2012", "body": "Midsize sedan",
+    "engines": [{"name": "2.5L I4", "hp": 178}, {"name": "2.5L I4 Hybrid", "hp": 200}, {"name": "3.5L V6", "hp": 268}]
+  },
+  "honda_accord_sedan_2012": {
+    "make": "Honda", "model": "Accord", "years": "2012", "body": "Midsize sedan",
+    "engines": [{"name": "2.4L I4", "hp": 177}, {"name": "3.5L V6", "hp": 271}]
+  },
+  "bmw_3_series_sedan_2012": {
+    "make": "BMW", "model": "3 Series", "years": "2012", "body": "Compact luxury sedan",
+    "engines": [{"name": "2.0L Turbo I4 (328i)", "hp": 240}, {"name": "3.0L Turbo I6 (335i)", "hp": 300}]
+  },
+  "honda_odyssey_minivan_2012": {
+    "make": "Honda", "model": "Odyssey", "years": "2012", "body": "Minivan",
+    "engines": [{"name": "3.5L V6", "hp": 248}]
+  },
+  "tesla_model_s_sedan_2012": {
+    "make": "Tesla", "model": "Model S", "years": "2012", "body": "Full-size electric sedan",
+    "engines": [{"name": "85 kWh electric", "hp": 362}, {"name": "Performance electric", "hp": 416}]
+  },
+  "chevrolet_silverado_1500_hybrid_crew_cab_2012": {
+    "make": "Chevrolet", "model": "Silverado 1500 Hybrid", "years": "2012", "body": "Full-size pickup (crew cab)",
+    "engines": [{"name": "6.0L V8 Hybrid", "hp": 332}]
+  },
+  "ford_f_150_regular_cab_2012": {
+    "make": "Ford", "model": "F-150", "years": "2012", "body": "Full-size pickup (regular cab)",
+    "engines": [{"name": "3.7L V6", "hp": 302}, {"name": "5.0L V8", "hp": 360},
+                {"name": "3.5L EcoBoost V6", "hp": 365}, {"name": "6.2L V8", "hp": 411}]
+  },
+  "ford_mustang_convertible_2007": {
+    "make": "Ford", "model": "Mustang Convertible", "years": "2007", "body": "Convertible",
+    "engines": [{"name": "4.0L V6", "hp": 210}, {"name": "4.6L V8 (GT)", "hp": 300}]
+  },
+  "jeep_wrangler_suv_2012": {
+    "make": "Jeep", "model": "Wrangler", "years": "2012", "body": "Off-road SUV",
+    "engines": [{"name": "3.6L V6", "hp": 285}]
+  }
+}
