@@ -1,0 +1,47 @@
+{
+  "_note": "Approximate figures for testing the pipeline. Replace with real data from fueleconomy.gov in Phase 8.",
+  "toyota_camry": {
+    "make": "Toyota",
+    "model": "Camry",
+    "years": "2018–2024",
+    "body": "Midsize sedan",
+    "engines": [
+      {"name": "2.5L I4", "hp": 203},
+      {"name": "2.5L I4 Hybrid", "hp": 208},
+      {"name": "3.5L V6", "hp": 301}
+    ]
+  },
+  "honda_civic": {
+    "make": "Honda",
+    "model": "Civic",
+    "years": "2022–present",
+    "body": "Compact sedan/hatchback",
+    "engines": [
+      {"name": "2.0L I4", "hp": 158},
+      {"name": "1.5L Turbo I4", "hp": 180},
+      {"name": "2.0L Turbo I4 (Type R)", "hp": 315}
+    ]
+  },
+  "ford_f-150": {
+    "make": "Ford",
+    "model": "F-150",
+    "years": "2021–present",
+    "body": "Full-size pickup",
+    "engines": [
+      {"name": "3.3L V6", "hp": 290},
+      {"name": "2.7L EcoBoost V6", "hp": 325},
+      {"name": "5.0L V8", "hp": 400},
+      {"name": "3.5L PowerBoost Hybrid V6", "hp": 430}
+    ]
+  },
+  "tesla_model3": {
+    "make": "Tesla",
+    "model": "Model 3",
+    "years": "2017–2023",
+    "body": "Compact electric sedan",
+    "engines": [
+      {"name": "RWD electric", "hp": 283},
+      {"name": "Long Range AWD electric", "hp": 346}
+    ]
+  }
+}
