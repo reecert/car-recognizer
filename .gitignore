@@ -2,7 +2,17 @@
 __pycache__/
 .DS_Store
 .ipynb_checkpoints/
+
+# Datasets: regenerate with phase3/prepare_stanford.py or phase1/organize.py
+data/
 phase1/raw_photos/
 phase1/dataset/
-phase3/runs/
-phase4/runs/
+
+# Training outputs and weights (Ultralytics re-downloads yolo26n*.pt on first use)
+runs/
+*.pt
+*.cache
+
+# CoreML export output (phase8/export_coreml.py)
+ios_assets/
+*.mlpackage
